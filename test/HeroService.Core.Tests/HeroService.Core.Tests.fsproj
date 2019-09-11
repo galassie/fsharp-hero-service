@@ -13,8 +13,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="UnitTest1.fs"/>
-    <Compile Include="Program.fs"/>
+    <Compile Include="DomainTypesCreatorTests.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\HeroService.Core\HeroService.Core.fsproj" />
   </ItemGroup>
 
 </Project>
