@@ -1,19 +1,12 @@
 ﻿namespace HeroService.Core
 
+open CustomBasicValueTypes
+
 module DomainTypes =
 
-    type Stat = private Stat of int
-    module Stat =
-        let create input = 
-            match input with
-            | x when x >= 0 && x <= 100 -> Some (Stat x)
-            | _ -> None
+    type Stat = Stat of Positive100
 
-        let value (Stat output) = output
-
-        let Default = Stat 10
-
-    type PersonInfo = { Name: string option; Surname: string option; Age: int option }
+    type PersonInfo = { Name: String50 option; Surname: String50 option; Age: Positive option }
     type PersonStats = {
         Strength: Stat;
         Dexterity: Stat;
@@ -22,41 +15,14 @@ module DomainTypes =
         Wisdom: Stat;
         Charisma: Stat
     }
-    module PersonStats =
-        let createWithDefault str dex cons int wis cha =
-            let evalOpt statOpt = match statOpt with | Some stat -> stat | None -> Stat.Default
-            {
-                Strength = Stat.create str |> evalOpt;
-                Dexterity = Stat.create dex |> evalOpt;
-                Constitution = Stat.create cons |> evalOpt;
-                Intelligence = Stat.create int |> evalOpt;
-                Wisdom = Stat.create wis |> evalOpt;
-                Charisma = Stat.create cha |> evalOpt;
-            }
-
     type HumanInfo = { PersonInfo: PersonInfo; PersonStats: PersonStats }
 
-    type SuperPower = { Name: string; Description: string }    
+    type SuperPower = { Name: String50; Description: String512 }
 
     type Hero =
-        private
-        | Human of HeroName: string * HumanInfo: HumanInfo
-        | SuperHuman of HeroName: string * HumanInfo: HumanInfo * SuperPowers: SuperPower list
-    module Hero =
-        let create heroName personInfo personStats superPowers =
-            let humanInfo = { PersonInfo = personInfo; PersonStats = personStats }
-            match superPowers with
-            | [] -> Human (heroName, humanInfo)
-            | _ -> SuperHuman (heroName, humanInfo, superPowers)
+        | Human of HeroName: String50 * HumanInfo: HumanInfo
+        | SuperHuman of HeroName: String50 * HumanInfo: HumanInfo * SuperPowers: SuperPower list
 
     type Villain =
-        private
-        | Human of HeroName: string * HumanInfo: HumanInfo
-        | SuperHuman of HeroName: string * HumanInfo: HumanInfo * SuperPowers: SuperPower list
-    module Villain =
-        let create villainName personInfo personStats superPowers =
-            let humanInfo = { PersonInfo = personInfo; PersonStats = personStats }
-            match superPowers with
-            | [] -> Human (villainName, humanInfo)
-            | _ -> SuperHuman (villainName, humanInfo, superPowers)
-    
+        | Human of HeroName: String50 * HumanInfo: HumanInfo
+        | SuperHuman of HeroName: String50 * HumanInfo: HumanInfo * SuperPowers: SuperPower list

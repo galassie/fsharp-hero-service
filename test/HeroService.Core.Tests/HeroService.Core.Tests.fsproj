@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <Compile Include="CustomBasicValueTypesCreatorTests.fs" />
-    <Compile Include="DomainTypesCreatorTests.fs" />
   </ItemGroup>
 
   <ItemGroup>
