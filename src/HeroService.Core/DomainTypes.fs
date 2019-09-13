@@ -23,7 +23,7 @@ module DomainTypes =
         Charisma: Stat
     }
     module PersonStats =
-        let create str dex cons int wis cha =
+        let createWithDefault str dex cons int wis cha =
             let evalOpt statOpt = match statOpt with | Some stat -> stat | None -> Stat.Default
             {
                 Strength = Stat.create str |> evalOpt;

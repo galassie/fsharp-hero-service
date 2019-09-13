@@ -21,11 +21,11 @@ type DomainTypesCreatorTests () =
             | None -> Assert.False(isSome)
 
     [<Test>]
-    member this.``PersonStats create should return stats with default 0 value if out of range`` () =
-        let personStats = PersonStats.create 10 -1 50 110 60 100
+    member this.``PersonStats createWithDefault should return stats with default value if out of range`` () =
+        let personStats = PersonStats.createWithDefault 10 -1 50 110 60 100
         Assert.AreEqual(10, Stat.value personStats.Strength)
-        Assert.AreEqual(0, Stat.value personStats.Dexterity)
+        Assert.AreEqual(Stat.Default, Stat.value personStats.Dexterity)
         Assert.AreEqual(50, Stat.value personStats.Constitution)
-        Assert.AreEqual(0, Stat.value personStats.Intelligence)
+        Assert.AreEqual(Stat.Default, Stat.value personStats.Intelligence)
         Assert.AreEqual(60, Stat.value personStats.Wisdom)
         Assert.AreEqual(100, Stat.value personStats.Charisma)
