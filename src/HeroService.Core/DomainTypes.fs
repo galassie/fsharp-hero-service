@@ -11,6 +11,8 @@ module DomainTypes =
 
         let value (Stat output) = output
 
+        let Default = Stat 10
+
     type PersonInfo = { Name: string option; Surname: string option; Age: int option }
     type PersonStats = {
         Strength: Stat;
@@ -22,7 +24,7 @@ module DomainTypes =
     }
     module PersonStats =
         let create str dex cons int wis cha =
-            let evalOpt statOpt = match statOpt with | Some stat -> stat | None -> Stat 0
+            let evalOpt statOpt = match statOpt with | Some stat -> stat | None -> Stat.Default
             {
                 Strength = Stat.create str |> evalOpt;
                 Dexterity = Stat.create dex |> evalOpt;
