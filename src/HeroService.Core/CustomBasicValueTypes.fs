@@ -24,7 +24,6 @@ module CustomBasicValueTypes =
 
     type String50 = private String50 of string
     module String50 =
-        let onSuccess (x:string) = Some (String50 x)
         let create value = 
             match value with
             | x when not (String.IsNullOrWhiteSpace(x)) && x.Length <= 50 -> Some (String50 x)
