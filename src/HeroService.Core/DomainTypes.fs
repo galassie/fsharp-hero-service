@@ -9,9 +9,9 @@ module DomainTypes =
     module PersonInfo =
         let create inputName inputSurname inputAge = 
             validation {
-                let! name = String50.create inputName |> validate "Error parsing name"
-                let! surname = String50.create inputSurname |> validate "Error parsing surname"
-                let! age = Positive.create inputAge |> validate "Error parsing age"
+                let! name = String50.create inputName |> validate "Error parsing Name"
+                let! surname = String50.create inputSurname |> validate "Error parsing Surname"
+                let! age = Positive.create inputAge |> validate "Error parsing Age"
                 return { Name = name; Surname = surname; Age = age }
             }
     
@@ -34,6 +34,17 @@ module DomainTypes =
             }
 
     type HumanInfo = { PersonInfo: PersonInfo; PersonStats: PersonStats }
+    module HumanInfo =
+        let create tryCreatePersonInfo tryCreatePersonStats =
+            let errorMessageEnricher prefixErrorMsg input =
+                match input with
+                | Ok x -> Ok x
+                | Error errorMsg -> Error (sprintf "%s: %s" prefixErrorMsg errorMsg)
+            validation {
+                let! personInfo = tryCreatePersonInfo() |> errorMessageEnricher "Failed to create PersonInfo"
+                let! personStats = tryCreatePersonStats() |> errorMessageEnricher "Failed to create PersonStats"
+                return { PersonInfo = personInfo; PersonStats = personStats }
+            }
 
     type SuperPower = { Name: String50; Description: String512 }
 

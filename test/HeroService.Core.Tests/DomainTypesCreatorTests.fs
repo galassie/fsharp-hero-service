@@ -6,9 +6,9 @@ open HeroService.Core.DomainTypes
 
 type DomainTypesCreatorTests() =
 
-    [<TestCase("", "Evans", 12, "Error parsing name")>]
-    [<TestCase("Chris", "", 20, "Error parsing surname")>]
-    [<TestCase("Chris", "Evans", -10, "Error parsing age")>]
+    [<TestCase("", "Evans", 12, "Error parsing Name")>]
+    [<TestCase("Chris", "", 20, "Error parsing Surname")>]
+    [<TestCase("Chris", "Evans", -10, "Error parsing Age")>]
     member this.``PersonInfo.create should return proper error message`` (name, surname, age, expectedErrorMsg) =
         PersonInfo.create name surname age
         |> function
@@ -50,3 +50,21 @@ type DomainTypesCreatorTests() =
                 Assert.True((Stat.value personStats.Wisdom |> (=) 99))
                 Assert.True((Stat.value personStats.Charisma |> (=) 100))
             | Error _ -> Assert.True(false)
+
+    [<Test>]
+    member this.``HumanInfo.create if fails creating PersonInfo should return proper error message`` () =
+        let koCreatePersonInfo = fun () -> PersonInfo.create "Chris" "Evans" -10
+        let okCreatePersonStats = fun () -> PersonStats.create 0 10 20 50 99 100
+        HumanInfo.create koCreatePersonInfo okCreatePersonStats
+        |> function
+            | Ok _ -> Assert.True(false)
+            | Error errorMsg -> Assert.AreEqual("Failed to create PersonInfo: Error parsing Age", errorMsg)
+            
+    [<Test>]
+    member this.``HumanInfo.create if fails creating PersonStats should return proper error message`` () =
+        let okCreatePersonInfo = fun () -> PersonInfo.create "Chris" "Evans" 35
+        let koCreatePersonStats = fun () -> PersonStats.create 0 -10 20 50 99 100
+        HumanInfo.create okCreatePersonInfo koCreatePersonStats
+        |> function
+            | Ok _ -> Assert.True(false)
+            | Error errorMsg -> Assert.AreEqual("Failed to create PersonStats: Error parsing Dexterity", errorMsg)
