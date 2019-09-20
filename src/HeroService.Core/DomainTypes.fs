@@ -36,10 +36,6 @@ module DomainTypes =
     type HumanInfo = { PersonInfo: PersonInfo; PersonStats: PersonStats }
     module HumanInfo =
         let create createPersonInfo createPersonStats =
-            let errorMessageEnricher prefixErrorMsg input =
-                match input with
-                | Ok x -> Ok x
-                | Error errorMsg -> Error (sprintf "%s: %s" prefixErrorMsg errorMsg)
             validation {
                 let! personInfo = createPersonInfo() |> errorMessageEnricher "Failed to create PersonInfo"
                 let! personStats = createPersonStats() |> errorMessageEnricher "Failed to create PersonStats"
@@ -58,6 +54,18 @@ module DomainTypes =
     type Hero =
         | Human of HeroName: String50 * HumanInfo: HumanInfo
         | SuperHuman of HeroName: String50 * HumanInfo: HumanInfo * SuperPowers: SuperPower list
+    module Hero =
+        let create inputHeroName createHumanInfo createSuperPowerList =
+            validation {
+                let! heroName = String50.create inputHeroName |> validate "Error parsing HeroName" 
+                let! humanInfo = createHumanInfo() |> errorMessageEnricher "Failed to create HumanInfo"
+                let! superPowerList = createSuperPowerList() |> errorMessageEnricher "Failed to create SuperPower list"
+                let result =
+                    match superPowerList with
+                    | [] -> Hero.Human(heroName, humanInfo)
+                    | superPowers -> Hero.SuperHuman(heroName, humanInfo, superPowers)
+                return result
+            }
 
     type Villain =
         | Human of HeroName: String50 * HumanInfo: HumanInfo
