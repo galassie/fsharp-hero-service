@@ -70,3 +70,15 @@ module DomainTypes =
     type Villain =
         | Human of HeroName: String50 * HumanInfo: HumanInfo
         | SuperHuman of HeroName: String50 * HumanInfo: HumanInfo * SuperPowers: SuperPower list
+    module Villain =
+        let create inputVillainName createHumanInfo createSuperPowerList =
+            validation {
+                let! heroName = String50.create inputVillainName |> validate "Error parsing VillainName" 
+                let! humanInfo = createHumanInfo() |> errorMessageEnricher "Failed to create HumanInfo"
+                let! superPowerList = createSuperPowerList() |> errorMessageEnricher "Failed to create SuperPower list"
+                let result =
+                    match superPowerList with
+                    | [] -> Villain.Human(heroName, humanInfo)
+                    | superPowers -> Villain.SuperHuman(heroName, humanInfo, superPowers)
+                return result
+            }
