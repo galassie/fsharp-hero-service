@@ -35,5 +35,5 @@ module ValidatorUtils =
         member this.Delay(f) =
             f()
     
-    let validation = new ValidationBuilder()
-    let maybeSeq = new MaybeSeqBuilder()
+    let validation = ValidationBuilder()
+    let maybeSeq = MaybeSeqBuilder()

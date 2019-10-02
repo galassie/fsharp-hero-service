@@ -1,5 +1,6 @@
 ﻿namespace HeroService.Core
 
+open System
 open CustomBasicValueTypes
 open ValidatorUtils
 
@@ -82,3 +83,9 @@ module DomainTypes =
                     | superPowers -> Villain.SuperHuman(heroName, humanInfo, superPowers)
                 return result
             }
+
+    type HeroRegistrationNumber = Guid
+    type VillainRegistrationNumber = Guid
+
+    type RegisteredHero = { HRN: HeroRegistrationNumber; Hero: Hero }
+    type RegisteredVillain = { VRN: VillainRegistrationNumber; Villain: Villain }

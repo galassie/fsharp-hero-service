@@ -1,6 +1,5 @@
 namespace HeroService.Web
 
-open System
 open Microsoft.AspNetCore.Builder
 open Microsoft.AspNetCore.Hosting
 open Microsoft.AspNetCore.Http

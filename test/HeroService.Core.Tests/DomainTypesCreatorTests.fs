@@ -158,7 +158,7 @@ type DomainTypesCreatorTests() =
                     Assert.True((Stat.value humanInfo.PersonStats.Intelligence |> (=) 50))
                     Assert.True((Stat.value humanInfo.PersonStats.Wisdom |> (=) 99))
                     Assert.True((Stat.value humanInfo.PersonStats.Charisma |> (=) 100))
-                | Hero.SuperHuman(_, _, _) -> Assert.True(false)
+                | Hero.SuperHuman(_) -> Assert.True(false)
             | Error _ -> Assert.True(false)
 
     [<Test>]
@@ -174,7 +174,7 @@ type DomainTypesCreatorTests() =
         |> function
             | Ok hero -> 
                 match hero with
-                | Hero.Human (_, _) -> Assert.True(false)
+                | Hero.Human (_) -> Assert.True(false)
                 | Hero.SuperHuman(heroName, humanInfo, superPowers) -> 
                     Assert.True((String50.value heroName |> (=) "Captain America"))
                     Assert.True((String50.value humanInfo.PersonInfo.Name |> (=) "Chris"))
@@ -247,7 +247,7 @@ type DomainTypesCreatorTests() =
                     Assert.True((Stat.value humanInfo.PersonStats.Intelligence |> (=) 50))
                     Assert.True((Stat.value humanInfo.PersonStats.Wisdom |> (=) 99))
                     Assert.True((Stat.value humanInfo.PersonStats.Charisma |> (=) 100))
-                | Villain.SuperHuman(_, _, _) -> Assert.True(false)
+                | Villain.SuperHuman(_) -> Assert.True(false)
             | Error _ -> Assert.True(false)
 
     [<Test>]
@@ -263,7 +263,7 @@ type DomainTypesCreatorTests() =
         |> function
             | Ok villain -> 
                 match villain with
-                | Villain.Human (_, _) -> Assert.True(false)
+                | Villain.Human (_) -> Assert.True(false)
                 | Villain.SuperHuman(villainName, humanInfo, superPowers) -> 
                     Assert.True((String50.value villainName |> (=) "Dr. Octopus"))
                     Assert.True((String50.value humanInfo.PersonInfo.Name |> (=) "Otto"))
