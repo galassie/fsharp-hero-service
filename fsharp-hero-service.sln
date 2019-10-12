@@ -7,11 +7,11 @@ Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "HeroService.Web", "src\Hero
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "HeroService.Core", "src\HeroService.Core\HeroService.Core.fsproj", "{7282FA4B-C4B7-45A7-9245-82D6AD29B5EF}"
 EndProject
-Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "HeroService.Core.Tests", "test\HeroService.Core.Tests\HeroService.Core.Tests.fsproj", "{523A7C77-B2CE-4822-825C-27A38E969B10}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "HeroService.Core.Tests", "tests\HeroService.Core.Tests\HeroService.Core.Tests.fsproj", "{523A7C77-B2CE-4822-825C-27A38E969B10}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CE07601B-7E35-46AB-9DB1-4D804269E6E2}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{94F9B6F4-9401-4651-A3CC-48179CB0DC69}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{94F9B6F4-9401-4651-A3CC-48179CB0DC69}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
